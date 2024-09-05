@@ -109,9 +109,9 @@
   background-color: #8E8E8E;
   color: #F0FBEC;
   padding: 10px 40px;
-  border: none;
   border-radius: 8px;
   transition: .2s linear;
+  border: 2px solid #8E8E8E;
 }
 
 .column__buttons {
