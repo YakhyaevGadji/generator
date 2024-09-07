@@ -27,43 +27,53 @@ export const model = (function() {
         }
     };
 
+    // Возвращает название kit
     const getDataKit = () => {
         return data.buttonData.kit
     };
 
+    // Записывает в kit новое название
     const setDataKit = (kit: string) => {
         data.buttonData.kit = kit;
     };
 
-    const getDataCount = () => {
-        return data.buttonData.count;
-    };
-
-    const getFilterCard = () => {
-        return data.cards.filter((item) => item.kit === data.buttonData.kit).splice(0, data.buttonData.count);
-    };
-
-    const getSelcteds = () => {
-        return data.selectedCards;
-    };
-
+    // Записывает количество карточек
     const setDataCount = (count: number) => {
         data.buttonData.count = count;
     };
 
+    // Возвращает количестов карточек
+    const getDataCount = () => {
+        return data.buttonData.count;
+    };
+
+    // Фильтрирует карточки в их kit
+    const getFilterCard = () => {
+        return data.cards.filter((item) => item.kit === data.buttonData.kit).splice(0, data.buttonData.count);
+    };
+
+    // Возвращяет выбранные карточки
+    const getSelcteds = () => {
+        return data.selectedCards;
+    };
+
+    // Удаляет нужный объект из массива выбранных карточек по id
     const removeSelectedId = (id: number) => {
         data.selectedCards = data.selectedCards.filter((item) => item.id !== Number(id));
     };
 
+    // Записывает пустой массив в выбранных карточках
     const resetSelectedCards = () => {
         data.selectedCards = [];
     };
 
+    // Меняет статус карточке
     const toggleStatusCard = (id: number) => {
         const index = data.cards.findIndex((item) => item.id == id);
         data.cards[index].status = !data.cards[index].status;
     };
 
+    // Добавляет в массив объект выбранных карточек
     const addSelctedsCardId = (id: number) => {
         const item = data.cards.find((item) => item.id == Number(id));
 
@@ -72,12 +82,14 @@ export const model = (function() {
         }
     };
 
+    // Сбрасывает статус всех карточек
     const resetCardsStatus = () => {
         data.cards.forEach((_, index) => {
            data.cards[index].status = false;
         });
     };
 
+    // Возвращяет массив карточек сравнивая их с выбранными карточками
     const findSelectedCardInCards = () => {
         return data.cards.filter(item => data.selectedCards.includes(item));
     };

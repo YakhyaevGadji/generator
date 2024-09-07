@@ -1,6 +1,8 @@
 import {Card} from "../types.ts";
 
 export const view = (function() {
+
+    // Обьект для поиска html элементов по тегу или id
     const DOMstrings = {
         buttons: '.buttons__button',
         listCard: '.generator__block',
@@ -9,9 +11,13 @@ export const view = (function() {
         card: '.card'
     };
 
+    // html элемент в которой будут рендериться карточки
     const listCard = document.querySelector(DOMstrings.listCard) as HTMLElement;
+
+    // html элемент вы которой будут рендериться выбранные карточки
     const selectedList = document.querySelector(DOMstrings.selectedList) as HTMLElement;
 
+    // Рендерит карточки
     const renderCardInList = (card: Card, indexCard: number): void => {
         listCard?.insertAdjacentHTML('beforeend', `
             <div class="card ${card.status ? 'card__active' : ''}" data-id="${card.id}">
@@ -21,6 +27,7 @@ export const view = (function() {
         `);
     };
 
+    // Рендерит выбранные карточки
     const renderSelectedCard = (item: Card): void => {
         selectedList?.insertAdjacentHTML('beforeend', `
             <div class="selecteds__item" data-card="${item.id}">
@@ -29,30 +36,31 @@ export const view = (function() {
         `);
     };
 
-    const toggleActiveCard = (card: HTMLDivElement): void => {
-        card.classList.add('card__active');
-    };
-
+    // Очищает html элемент в которой будут рендериться карточки
     const clearListElement = (): boolean | void => {
-        if(!listCard) return false;
+        if (!listCard) return false;
 
         listCard.innerHTML = '';
     };
 
+    // Очищает html элемент в которой будут рендериться выбранне карточки
     const clearSelectedList = (): boolean | void => {
-        if(!selectedList) return false;
+        if (!selectedList) return false;
 
         selectedList.innerHTML = '';
     };
 
+    // Удаляет из страницы выбранную карточку
     const removeSelectedCard = (elem: HTMLElement): void => {
         elem.remove();
     };
 
+    // Очищает html элемент где будут рендериться выбранные карточки
     const resetSelectedList = (): void => {
-        selectedList?.insertAdjacentHTML('beforeend', ``);
+        selectedList.innerHTML = '';
     };
 
+    // Переключает стили кнопок
     const toggleActive = (event: MouseEvent): void => {
         const target = event.target;
 
@@ -69,7 +77,6 @@ export const view = (function() {
         getDomStrings: DOMstrings,
         renderCardInList,
         clearListElement,
-        toggleActiveCard,
         toggleActive,
         renderSelectedCard,
         clearSelectedList,

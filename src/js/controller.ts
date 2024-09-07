@@ -4,6 +4,7 @@ import {view} from "./view.ts";
 const controller = (function(budgetCtrl, uiCtrl) {
     const DOM = uiCtrl.getDomStrings;
 
+    // Функция для инициализации приложения
     const initialController = () => {
         const list = document.querySelector(DOM.listCard) as HTMLElement;
         const selectedList = document.querySelector(DOM.selectedList) as HTMLElement;
@@ -12,6 +13,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         selectedList.addEventListener("click", onClickSelectedCard);
     };
 
+    // Обращается к функции рендеринга выбранных элементов
     const handleSelected = (): void => {
         const selectedCards = budgetCtrl.getSelcteds();
 
@@ -20,6 +22,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         });
     };
 
+    // Клик по карточке
     const onClickCard = (event: MouseEvent): void => {
         const target = event.target as HTMLElement;
 
@@ -38,10 +41,11 @@ const controller = (function(budgetCtrl, uiCtrl) {
         }
     };
 
+    // Клик по выбранным карточкам
     const onClickSelectedCard = (event: MouseEvent): boolean | void => {
         const target = event.target as HTMLElement;
 
-        if(!target) return false;
+        if (!target) return false;
 
         const selectedItem = target.closest(DOM.selectedsItem) as HTMLElement;
 
@@ -57,6 +61,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         }
     };
 
+    // Рендерит карточки после клика на кнопки
     const renderCard = (): void => {
         const cards = budgetCtrl.getFilterCard();
         const selectedCards = budgetCtrl.getSelcteds();
@@ -72,6 +77,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
         });
     };
 
+    // Сохраняет id и kit в файле model
     const onClickButton = (event: MouseEvent): void => {
         const target = event.target as HTMLElement;
 
