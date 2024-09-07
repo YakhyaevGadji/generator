@@ -45,8 +45,8 @@
 .selecteds__item::before {
   content: "";
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 20px;
+  top: 20px;
   width: 70px;
   height: 70px;
   background: url("./icons/icon-minus.png") no-repeat;
