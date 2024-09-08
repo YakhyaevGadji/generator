@@ -5,7 +5,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
     const DOM = uiCtrl.getDomStrings;
 
     // Инициализация приложения
-    const initializeApp = () => {
+    const initializeApp = (): void => {
         const list = document.querySelector(DOM.listCard) as HTMLElement;
         const selectedList = document.querySelector(DOM.selectedList) as HTMLElement;
 
@@ -34,7 +34,7 @@ const controller = (function(budgetCtrl, uiCtrl) {
     };
 
     // Обработка клика по выбранной карточке
-    const handleSelectedCardClick = (event: MouseEvent): boolean | void => {
+    const handleSelectedCardClick = (event: MouseEvent): void => {
         const target = event.target as HTMLElement;
         const selectedItem = target.closest(DOM.selectedsItem) as HTMLElement;
 

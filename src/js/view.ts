@@ -12,13 +12,9 @@ export const view = (function() {
         buttonsGenerate: '.buttons__generate'
     };
 
-    // html элемент в которой будут рендериться карточки
+    // HTML элементы
     const listCard = document.querySelector(DOMstrings.listCard) as HTMLElement;
-
-    // html элемент вы которой будут рендериться выбранные карточки
     const selectedList = document.querySelector(DOMstrings.selectedList) as HTMLElement;
-
-    // Кнопка generate
     const buttonsGenerate = document.querySelector(DOMstrings.buttonsGenerate) as HTMLButtonElement;
 
     // Рендерит карточки
@@ -41,15 +37,15 @@ export const view = (function() {
     };
 
     // Очищает html элемент в которой будут рендериться карточки
-    const clearListElement = (): boolean | void => {
-        if (!listCard) return false;
+    const clearListElement = (): void => {
+        if (!listCard) return;
 
         listCard.innerHTML = '';
     };
 
     // Очищает html элемент в которой будут рендериться выбранне карточки
-    const clearSelectedList = (): boolean | void => {
-        if (!selectedList) return false;
+    const clearSelectedList = (): void => {
+        if (!selectedList) return;
 
         selectedList.innerHTML = '';
     };
