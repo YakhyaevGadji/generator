@@ -10,6 +10,9 @@
 - [JavaScript](https://developer.mozilla.org/ru/docs/Web/JavaScript)
 - [TypeScript](https://www.typescriptlang.org/)
 
+## Методологии
+-MVC
+
 ## Использование
 
 Установите npm-пакет с помощью команды:
