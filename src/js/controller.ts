@@ -4,28 +4,18 @@ import {view} from "./view.ts";
 const controller = (function(budgetCtrl, uiCtrl) {
     const DOM = uiCtrl.getDomStrings;
 
-    // Функция для инициализации приложения
-    const initialController = () => {
+    // Инициализация приложения
+    const initializeApp = () => {
         const list = document.querySelector(DOM.listCard) as HTMLElement;
         const selectedList = document.querySelector(DOM.selectedList) as HTMLElement;
 
-        list.addEventListener("click", onClickCard);
-        selectedList.addEventListener("click", onClickSelectedCard);
+        list.addEventListener("click", handleCardClick);
+        selectedList.addEventListener("click", handleSelectedCardClick);
     };
 
-    // Обращается к функции рендеринга выбранных элементов
-    const handleSelected = (): void => {
-        const selectedCards = budgetCtrl.getSelcteds();
-
-        selectedCards.forEach((card) => {
-            uiCtrl.renderSelectedCard(card);
-        });
-    };
-
-    // Клик по карточке
-    const onClickCard = (event: MouseEvent): void => {
+    // Обработка клика по карточке
+    const handleCardClick = (event: MouseEvent): void => {
         const target = event.target as HTMLElement;
-
         const cardElem = target.closest(DOM.card) as HTMLElement | null;
 
         if (cardElem) {
@@ -39,14 +29,13 @@ const controller = (function(budgetCtrl, uiCtrl) {
             handleSelected();
             renderCard();
         }
+
+        toggleButtonGenerate();
     };
 
-    // Клик по выбранным карточкам
-    const onClickSelectedCard = (event: MouseEvent): boolean | void => {
+    // Обработка клика по выбранной карточке
+    const handleSelectedCardClick = (event: MouseEvent): boolean | void => {
         const target = event.target as HTMLElement;
-
-        if (!target) return false;
-
         const selectedItem = target.closest(DOM.selectedsItem) as HTMLElement;
 
         if (selectedItem) {
@@ -57,18 +46,27 @@ const controller = (function(budgetCtrl, uiCtrl) {
 
             uiCtrl.removeSelectedCard(selectedItem);
 
+            toggleButtonGenerate();
             renderCard();
         }
+    };
+
+    // Рендер выбранных карточек
+    const handleSelected = (): void => {
+        const selectedCards = budgetCtrl.getSelcteds();
+
+        selectedCards.forEach((card) => {
+            uiCtrl.renderSelectedCard(card);
+        });
     };
 
     // Рендерит карточки после клика на кнопки
     const renderCard = (): void => {
         const cards = budgetCtrl.getFilterCard();
         const selectedCards = budgetCtrl.getSelcteds();
+        const selectedCardId = selectedCards.map((card) => card.id);
 
         uiCtrl.clearListElement();
-
-        const selectedCardId = selectedCards.map((card) => card.id);
 
         cards.forEach((item) => {
             const indexCard = selectedCardId.indexOf(item.id) + 1;
@@ -77,10 +75,9 @@ const controller = (function(budgetCtrl, uiCtrl) {
         });
     };
 
-    // Сохраняет id и kit в файле model
-    const onClickButton = (event: MouseEvent): void => {
+    // Обработка клика по кнопке
+    const handleButtonClick = (event: MouseEvent): void => {
         const target = event.target as HTMLElement;
-
         const kit = target.id;
         const id = target.dataset.kit;
 
@@ -93,17 +90,29 @@ const controller = (function(budgetCtrl, uiCtrl) {
 
         budgetCtrl.resetSelectedCards();
 
+        toggleButtonGenerate();
         renderCard();
+    };
+
+    // Обновление состояния кнопки generate
+    const toggleButtonGenerate = () => {
+        const selectedCards = budgetCtrl.getSelcteds();
+
+        if(selectedCards.length >= 2) {
+            uiCtrl.toggleActiveGenerateBtn(true);
+        }else {
+            uiCtrl.toggleActiveGenerateBtn(false);
+        }
     };
 
     const buttons = document.querySelectorAll<HTMLButtonElement>(DOM.buttons);
 
     buttons?.forEach((item): void => {
-        item.addEventListener('click', onClickButton);
+        item.addEventListener('click', handleButtonClick);
     });
 
     return {
-        init: initialController
+        init: initializeApp
     };
 })(model, view);
 

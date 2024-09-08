@@ -4,11 +4,12 @@ export const view = (function() {
 
     // Обьект для поиска html элементов по тегу или id
     const DOMstrings = {
-        buttons: '.buttons__button',
+        buttons: '[data-button="nav"]',
         listCard: '.generator__block',
         selectedList: '.selecteds',
         selectedsItem: '.selecteds__item',
-        card: '.card'
+        card: '.card',
+        buttonsGenerate: '.buttons__generate'
     };
 
     // html элемент в которой будут рендериться карточки
@@ -16,6 +17,9 @@ export const view = (function() {
 
     // html элемент вы которой будут рендериться выбранные карточки
     const selectedList = document.querySelector(DOMstrings.selectedList) as HTMLElement;
+
+    // Кнопка generate
+    const buttonsGenerate = document.querySelector(DOMstrings.buttonsGenerate) as HTMLButtonElement;
 
     // Рендерит карточки
     const renderCardInList = (card: Card, indexCard: number): void => {
@@ -73,6 +77,12 @@ export const view = (function() {
         }
     };
 
+    //Переключает класс и disabled кнопки generate
+    const toggleActiveGenerateBtn = (asActive: boolean): void => {
+        buttonsGenerate.classList.toggle('buttons__generate__active', asActive);
+        buttonsGenerate.disabled = !asActive;
+    };
+
     return {
         getDomStrings: DOMstrings,
         renderCardInList,
@@ -81,6 +91,7 @@ export const view = (function() {
         renderSelectedCard,
         clearSelectedList,
         resetSelectedList,
-        removeSelectedCard
+        removeSelectedCard,
+        toggleActiveGenerateBtn
     }
 })();

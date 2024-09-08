@@ -7,8 +7,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             
             <div class="buttons">
                 <div class="buttons__flex">
-                    <button class="buttons__button" id="one" data-kit="4">Набор 1</button>
-                    <button class="buttons__button" id="two" data-kit="5">Набор 2</button>
+                    <button class="buttons__button" data-button="nav" id="one" data-kit="4">Набор 1</button>
+                    <button class="buttons__button" data-button="nav" id="two" data-kit="5">Набор 2</button>
                 </div>
                 <button class="buttons__generate" disabled>Генератор</button>
             </div>
